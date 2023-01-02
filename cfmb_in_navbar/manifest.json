@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "Classic Floorp Menu Button in Navbar",
+  "description": "在りし日に存在していた、旧デザインのメニューボタンを貴方にも",
+  "applications": {
+    "gecko": {
+      "id": "cfmb_in_navbar@Kaonasi.Biwa"
+    }
+  },
+  "theme": {
+  },
+  "theme_experiment":{
+    "stylesheet":"./stylesheet.css"
+  }
+}

@@ -1,0 +1,80 @@
+name: Build
+on:
+  push:
+    tags:
+      - "[0-9]+\\.[0-9]+\\.[0-9]+"
+
+
+jobs:
+
+  build-firefox:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Archive
+      run: |
+        cd ./cfmb/
+        zip -r Twitter_UI_Customizer_Firefox.xpi ./ -x "*.git*"
+    - name: Publish
+      uses: actions/upload-artifact@v1
+      with:
+        name: classic_floorp_menu_button
+        path: classic_floorp_menu_button.xpi
+
+
+  build-chromium:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Archive
+      run: |
+        cd ./cfmb_in_navbar/
+        zip -r classic_floorp_menu_button_in_navbar ./ -x "*.git*"
+    - name: Publish
+      uses: actions/upload-artifact@v1
+      with:
+        name: classic_floorp_menu_button_in_navbar
+        path: classic_floorp_menu_button_in_navbar.xpi
+
+  make-release:
+    runs-on: ubuntu-latest
+    needs: [build-firefox,build-chromium]
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Classic Floorp Menu Button ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: loadf
+      uses: actions/download-artifact@v2
+      with:
+        name: classic_floorp_menu_button
+    - name: loadf
+      uses: actions/download-artifact@v2
+      with:
+        name: classic_floorp_menu_button_in_navbar
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: classic_floorp_menu_button.xpi
+        asset_name: classic_floorp_menu_button.xpi
+        asset_content_type: application/zip
+    - name: Upload Release Asset
+      id: upload-release-asset2
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: classic_floorp_menu_button_in_navbar.zip
+        asset_name: classic_floorp_menu_button_in_navbar.zip
+        asset_content_type: application/zip
