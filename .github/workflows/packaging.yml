@@ -13,7 +13,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Archive
       run: |
-        zip -r classic_floorp_menu_button.xpi ./cfmb/ -x "*.git*"
+        cd ./cfmb/
+        zip -r classic_floorp_menu_button.xpi ./ -x "*.git*"
+        mv ./classic_floorp_menu_button.xpi ../classic_floorp_menu_button.xpi
+        cd ../
     - name: Publish
       uses: actions/upload-artifact@v1
       with:
@@ -27,7 +30,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Archive
       run: |
-        zip -r classic_floorp_menu_button_in_navbar.xpi ./cfmb_in_navbar/ -x "*.git*"
+        cd ./cfmb_in_navbar/
+        zip -r classic_floorp_menu_button_in_navbar.xpi ./ -x "*.git*"
+        mv ./classic_floorp_menu_button_in_navbar.xpi ../classic_floorp_menu_button_in_navbar.xpi
+        cd ../
     - name: Publish
       uses: actions/upload-artifact@v1
       with:
