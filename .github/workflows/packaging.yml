@@ -14,7 +14,7 @@ jobs:
     - name: Archive
       run: |
         cd ./cfmb/
-        zip -r Twitter_UI_Customizer_Firefox.xpi ./ -x "*.git*"
+        zip -r Tclassic_floorp_menu_button.xpi ./ -x "*.git*"
     - name: Publish
       uses: actions/upload-artifact@v1
       with:
@@ -29,7 +29,7 @@ jobs:
     - name: Archive
       run: |
         cd ./cfmb_in_navbar/
-        zip -r classic_floorp_menu_button_in_navbar ./ -x "*.git*"
+        zip -r classic_floorp_menu_button_in_navbar.xpi ./ -x "*.git*"
     - name: Publish
       uses: actions/upload-artifact@v1
       with:
